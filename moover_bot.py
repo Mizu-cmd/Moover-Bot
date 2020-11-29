@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import json
+from decouple import config
 
 def get_prefix(client, message):
     with open('prefixes.json', 'r') as f:
@@ -15,6 +16,7 @@ def get_channel(client, message):
     return channels[str(message.guild.id)]
 
 client = commands.Bot(command_prefix=get_prefix)
+token = config('DISCORD_BOT_TOKEN')
 client.remove_command("help")
 
 @client.event
@@ -113,5 +115,5 @@ async def on_member_update(before, after):
     except:
         print()
 
-client.run('NzgyMjE3OTA4NDc4MDE3NTM2.X8I_Mg.rbQJR0Qef_PEk3HAWwGKO0QYHg4')
+client.run(token)
 client.add_command(changeprefix)
